@@ -1,9 +1,11 @@
 //React
 import { Link } from 'react-router-dom';
+//Css
+import '../assets/css/Homepage.css';
 
 const Homepage = () => {
   return (
-    <div>
+    <div className="homepage">
       <Link to="/photos">
         <span className="material-icons-outlined">photo_library</span>
       </Link>

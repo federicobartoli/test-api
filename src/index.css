@@ -12,8 +12,8 @@
   --base-spacing: 8px;
   /* colours */
   --purple: #707ef7;
-  --green: #59a65b;
-  --volt-green: #00ff85;
+  --purple-hover: #3800fb;
+  --green: #baffb4;
   --grey: #b2b2b2;
   --light-grey: #f7f7f7;
   --black: #141414;
@@ -23,6 +23,8 @@
   --large: 24px;
   /* Max-width */
   --max-width: 1440px;
+  /* Transition */
+  --transition: all 0.5s ease;
 }
 
 body {

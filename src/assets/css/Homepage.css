@@ -1,0 +1,29 @@
+.homepage {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: calc(3 * var(--base-spacing));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: calc(3 * var(--base-spacing));
+}
+
+.homepage a {
+  width: 200px;
+  height: 100px;
+  border: 1px solid var(--grey);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  color: var(--grey);
+  transition: var(--transition);
+}
+
+.homepage a:hover {
+  color: var(--black);
+  border: 1px solid var(--black);
+}
+
+.homepage a span {
+  font-size: calc(2 * var(--large));
+}
