@@ -1,0 +1,22 @@
+.photos-container {
+  padding: calc(2 * var(--base-spacing));
+  margin: 0 auto;
+  max-width: var(--max-width);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 50px;
+  justify-items: center;
+}
+
+.photos-container .card {
+  text-align: center;
+  width: 150px;
+  cursor: pointer;
+}
+
+.photos-container .card p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: var(--base-spacing);
+}

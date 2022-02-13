@@ -1,6 +1,7 @@
 header {
   border-bottom: 1px solid var(--grey);
   position: relative;
+  z-index: 2;
 }
 header .header-container {
   display: flex;
@@ -8,7 +9,7 @@ header .header-container {
   margin: 0 auto;
   justify-content: space-between;
   align-items: center;
-  padding: calc(3 * var(--base-spacing));
+  padding: calc(2 * var(--base-spacing));
 }
 header .header-container nav {
   display: flex;
@@ -42,7 +43,6 @@ header .header-container > a:first-of-type:hover svg path:last-child {
 @media (max-width: 768px) {
   header .header-container {
     height: 64px;
-    padding: calc(2 * var(--base-spacing));
     align-items: center;
     transform-style: preserve-3d;
     background: white;
