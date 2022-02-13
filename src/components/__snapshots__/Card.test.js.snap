@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card renders Card corectly 1`] = `
+<div>
+  <div
+    class="card"
+  >
+    <button
+      class="heart-button undefined"
+    >
+      <div
+        class="heart-flip"
+      />
+      <span>
+        Like
+        <span>
+          d
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;

@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+
 import axios from 'axios';
 //Components
 import Loader from '../components/Loader';
@@ -6,23 +7,21 @@ import ImagePlaceholder from '../components/ImagePlaceholder';
 import Card from '../components/Card';
 //Css
 import '../assets/css/Photos.css';
-//Context
-import { PhotosContext } from '../context/PhotosContext';
-import { WishlistContext } from '../context/WishlistContext';
 
 export const photosUrl = 'https://jsonplaceholder.typicode.com/photos';
 
-const Photos = () => {
+const Photos = ({ favorites }) => {
   const queryParam = 'albumId=1';
-  const { photos, setPhotos } = useContext(PhotosContext);
+
   //State
   const [loading, setLoading] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [error, setError] = useState(null);
-
+  const [wishlist, setWishlist] = useState([]);
   //Context
-  const { wishlist, setWishlist } = useContext(WishlistContext);
+  const [photos, setPhotos] = useState(null);
 
+  //Functions
   const handleLike = (id) => {
     if (!wishlist.includes(id)) {
       setWishlist((prevWishlist) => {
@@ -33,6 +32,12 @@ const Photos = () => {
       setWishlist(newWishList);
     }
   };
+
+  //UseEffect
+  useEffect(() => {
+    let list = JSON.parse(localStorage.getItem('wishlist'));
+    setWishlist(list);
+  }, []);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -50,9 +55,7 @@ const Photos = () => {
     }
     return () => source.cancel();
   }, [setPhotos, photos]);
-
   useEffect(() => {
-    console.log('useEffect local');
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
 
@@ -60,33 +63,42 @@ const Photos = () => {
     <div className="photos-container">
       {!loading ? (
         photos?.length > 1 ? (
-          photos?.map((photo) => {
-            return (
-              <Card
-                handleLike={() => handleLike(photo.id)}
-                id={photo.id}
-                key={`photo--${photo.id}`}
-                liked={wishlist?.includes(photo.id) ? true : false}
-              >
-                {!isImageLoaded && <ImagePlaceholder />}
-                <img
-                  className={`${isImageLoaded ? 'd-block' : 'd-none'}`}
-                  src={photo.thumbnailUrl}
-                  alt={photo.title}
-                  onLoad={() => setIsImageLoaded(true)}
-                />
-                <p>{photo.title}</p>
-              </Card>
-            );
-          })
+          photos
+            ?.filter((ph) => {
+              if (favorites) {
+                return wishlist.includes(ph.id);
+              } else {
+                return ph;
+              }
+            })
+            .map((photo) => {
+              return (
+                <Card
+                  handleLike={() => handleLike(photo.id)}
+                  id={photo.id}
+                  key={`photo--${photo.id}`}
+                  liked={wishlist?.includes(photo.id) ? true : false}
+                >
+                  {!isImageLoaded && <ImagePlaceholder />}
+                  <img
+                    className={`${isImageLoaded ? 'd-block' : 'd-none'}`}
+                    src={photo.thumbnailUrl}
+                    alt={photo.title}
+                    onLoad={() => setIsImageLoaded(true)}
+                  />
+                  <p>{photo.title}</p>
+                </Card>
+              );
+            })
         ) : error ? (
-          `Si è presentato il seguente errore :  ${error.message}`
+          `The following error occurred :  ${error.message}`
         ) : (
-          'Nessuna foto'
+          'No photos'
         )
       ) : (
         <Loader />
       )}
+      {favorites && !error && !loading && wishlist.length < 1 && 'No favorites'}
     </div>
   );
 };
