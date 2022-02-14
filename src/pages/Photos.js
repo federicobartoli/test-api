@@ -38,7 +38,6 @@ const Photos = ({ favorites }) => {
     let list = JSON.parse(localStorage.getItem('wishlist'));
     setWishlist(list);
   }, []);
-
   useEffect(() => {
     const source = axios.CancelToken.source();
     if (!photos) {
@@ -49,6 +48,7 @@ const Photos = ({ favorites }) => {
         })
         .then((res) => setPhotos(res.data))
         .catch((err) => {
+          if (axios.isCancel());
           setError(err);
         })
         .finally(() => setLoading(false));

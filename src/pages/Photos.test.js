@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { render, screen, act } from '@testing-library/react';
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
@@ -50,7 +51,7 @@ describe('api tests', () => {
     const photoTitleItem = await screen.findByText('test');
     expect(photoTitleItem).toBeVisible();
   });
-  test('should call setLoading when the Photos component is mounted', async () => {
+  test('should call setLoading when the Photos component is mounted', () => {
     const setLoading = jest.fn();
     const handleState = jest.spyOn(React, 'useState');
     handleState.mockImplementation((loading) => [loading, setLoading]);
