@@ -72,7 +72,9 @@ const Photos = ({ favorites }) => {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
 
-  return (
+  return favorites && !wishlist ? (
+    <p className="text-center">No favorites.</p>
+  ) : (
     <>
       <SearchBar andOr={andOr} setAndOr={setAndOr} handleFilter={handleFilter} />
       <div className="photos-container">

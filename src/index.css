@@ -70,10 +70,13 @@ ul {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
-
+/* utilities */
 .d-none {
   display: none;
 }
 .d-block {
   display: block;
+}
+.text-center {
+  text-align: center;
 }
