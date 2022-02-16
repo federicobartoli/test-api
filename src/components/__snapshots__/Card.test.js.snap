@@ -6,7 +6,8 @@ exports[`Card renders Card corectly 1`] = `
     class="card"
   >
     <button
-      class="heart-button undefined"
+      class="heart-button "
+      data-testid="heart-button"
     >
       <div
         class="heart-flip"
