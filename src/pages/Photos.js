@@ -48,7 +48,9 @@ const Photos = ({ favorites }) => {
   //UseEffect
   useEffect(() => {
     let list = JSON.parse(localStorage.getItem('wishlist'));
-    setWishlist(list);
+    if (list) {
+      setWishlist(list);
+    }
   }, []);
 
   useEffect(() => {
