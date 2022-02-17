@@ -22,16 +22,17 @@ const Photos = ({ favorites }) => {
   //Filter
   const [keyWords, setKeyWords] = useState([]);
   const [andOr, setAndOr] = useState(false);
-  //Context
   const [photos, setPhotos] = useState(null);
 
   //Functions
   const handleLike = (id) => {
     if (!wishlist.includes(id)) {
+      //add the id of the photo in wishlist
       setWishlist((prevWishlist) => {
         return [...prevWishlist, id];
       });
     } else {
+      //remove the id of the photo in wishlist(filtering wishlist and setting a new one)
       const newWishList = wishlist.filter((item) => item !== id);
       setWishlist(newWishList);
     }
@@ -70,6 +71,7 @@ const Photos = ({ favorites }) => {
     }
     return () => source.cancel();
   }, [setPhotos, photos]);
+
   useEffect(() => {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   }, [wishlist]);

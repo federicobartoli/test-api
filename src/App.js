@@ -7,6 +7,7 @@ import Photos from './pages/Photos';
 import Homepage from './pages/Homepage';
 
 function App() {
+  // The favorites route is just the photo component with favorites=true that works as a filter.
   return (
     <div className="app">
       <Router>
