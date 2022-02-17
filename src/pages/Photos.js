@@ -14,17 +14,16 @@ export const photosUrl = 'https://jsonplaceholder.typicode.com/photos';
 const Photos = ({ favorites }) => {
   const queryParam = 'albumId=1';
 
-  //State
   const [loading, setLoading] = useState(false);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [error, setError] = useState(null);
+
+  const [photos, setPhotos] = useState(null);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   const [wishlist, setWishlist] = useState([]);
-  //Filter
   const [keyWords, setKeyWords] = useState([]);
   const [andOr, setAndOr] = useState(false);
-  const [photos, setPhotos] = useState(null);
 
-  //Functions
   const handleLike = (id) => {
     if (!wishlist.includes(id)) {
       //add the id of the photo in wishlist
@@ -37,8 +36,8 @@ const Photos = ({ favorites }) => {
       setWishlist(newWishList);
     }
   };
-
   const handleFilter = (keyWords) => {
+    // I add to KeyWordsArray only the .name of the keyWords object and then I set it in a state
     const keyWordsArray = [];
     keyWords.map((keyWord) => {
       return keyWordsArray.push(keyWord.name);
@@ -46,8 +45,11 @@ const Photos = ({ favorites }) => {
     setKeyWords([...keyWordsArray]);
   };
 
-  //UseEffect
   useEffect(() => {
+    /* at onmount i search for the list of photo IDs in local storage, 
+    if there is one I set the Wishlist status.
+    Only run once.
+    */
     let list = JSON.parse(localStorage.getItem('wishlist'));
     if (list) {
       setWishlist(list);
@@ -55,6 +57,7 @@ const Photos = ({ favorites }) => {
   }, []);
 
   useEffect(() => {
+    // If I don't have pictures I make the call to set them up.
     const source = axios.CancelToken.source();
     if (!photos) {
       setLoading(true);
@@ -73,6 +76,7 @@ const Photos = ({ favorites }) => {
   }, [setPhotos, photos]);
 
   useEffect(() => {
+    // Whenever the wishlist changes I set up local storage.
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
 
