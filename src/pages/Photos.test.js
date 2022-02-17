@@ -1,12 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { render, screen, act } from '@testing-library/react';
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 import Photos, { photosUrl, loading } from './Photos';
-//Context
 
 const photosResponse = rest.get(photosUrl, (req, res, ctx) => {
   return res(
