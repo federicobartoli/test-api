@@ -1,17 +1,5 @@
 # ReadMe - TESTAPI FEDERICO BARTOLI
 
-```mermaid
-    graph TD;
-    A[Photos Section]
-    B(Favorites Section)
-    A -->|Fetch all photos and view them with the 'like' button and title| C{Click on like button<br/> in a single photo}
-    C -->|Like button is not active| D[Add Photo ID in array located in local storage<br />Add active class in the like button]
-    C -->|Like button is active| E[Remove Photo ID from the array located in local storage <br /> Remove active class from the like button]
-    B -->|Filter all photos thanks to array located in local storage <br/> and view them with the 'like' button and title| C
-```
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Available Scripts
 
 In the project directory, you can run:
