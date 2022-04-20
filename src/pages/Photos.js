@@ -18,7 +18,6 @@ const Photos = ({ favorites }) => {
   const [error, setError] = useState(null);
 
   const [photos, setPhotos] = useState(null);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const [wishlist, setWishlist] = useState([]);
   const [keyWords, setKeyWords] = useState([]);
@@ -115,13 +114,7 @@ const Photos = ({ favorites }) => {
                     key={`photo--${photo.id}`}
                     liked={wishlist?.includes(photo.id) ? true : false}
                   >
-                    {!isImageLoaded && <ImagePlaceholder />}
-                    <img
-                      className={`${isImageLoaded ? 'd-block' : 'd-none'}`}
-                      src={photo.thumbnailUrl}
-                      alt={photo.title}
-                      onLoad={() => setIsImageLoaded(true)}
-                    />
+                    <img src={photo.thumbnailUrl} alt={photo.title} />
                     <p>{photo.title}</p>
                   </Card>
                 );

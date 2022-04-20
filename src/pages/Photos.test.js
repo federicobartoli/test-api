@@ -47,18 +47,38 @@ describe('api tests', () => {
     const photoTitleItem = await screen.findByText('test');
     expect(photoTitleItem).toBeVisible();
   });
-  // test('should call setLoading when the Photos component is mounted', () => {
-  //   const setLoading = jest.fn();
-  //   const handleState = jest.spyOn(React, 'useState');
-  //   handleState.mockImplementation((loading) => [loading, setLoading]);
-  //   expect(setLoading).not.toBeCalled();
-  //   act(() => {
-  //     render(
-  //       <Router>
-  //         <Photos />
-  //       </Router>,
-  //     );
-  //   });
-  //   expect(setLoading).toBeCalled();
-  // });
+  test('should render 2 images', async () => {
+    render(
+      <Router>
+        <Photos />
+      </Router>,
+    );
+    const images = await screen.findAllByRole('img');
+    expect(images.length).toBe(2);
+  });
+  test('should show image titles', async () => {
+    render(
+      <Router>
+        <Photos />
+      </Router>,
+    );
+    const imageTitleOne = await screen.findByText('test');
+    const imageTitleTwo = await screen.findByText('test2');
+    expect(imageTitleOne).toBeVisible();
+    expect(imageTitleTwo).toBeVisible();
+  });
+  test('should call setLoading when the Photos component is mounted', () => {
+    const setLoading = jest.fn();
+    const handleState = jest.spyOn(React, 'useState');
+    handleState.mockImplementation((loading) => [loading, setLoading]);
+    expect(setLoading).not.toBeCalled();
+
+    render(
+      <Router>
+        <Photos />
+      </Router>,
+    );
+
+    expect(setLoading).toBeCalled();
+  });
 });
