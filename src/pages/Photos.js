@@ -44,6 +44,26 @@ const Photos = ({ favorites }) => {
     setKeyWords([...keyWordsArray]);
   };
 
+  const handleFavorites = (ph) => {
+    if (favorites) {
+      return wishlist.includes(ph.id);
+    } else {
+      return ph;
+    }
+  };
+
+  const handleUseFilter = (ph) => {
+    if (keyWords?.length > 0) {
+      if (!andOr) {
+        return keyWords.some((keyword) => ph.title.includes(keyword));
+      } else {
+        return keyWords.every((keyword) => ph.title.includes(keyword));
+      }
+    } else {
+      return ph;
+    }
+  };
+
   useEffect(() => {
     /* at onmount i search for the list of photo IDs in local storage, 
     if there is one I set the Wishlist status.
@@ -88,24 +108,8 @@ const Photos = ({ favorites }) => {
         {!loading ? (
           photos?.length > 0 ? (
             photos
-              ?.filter((ph) => {
-                if (favorites) {
-                  return wishlist.includes(ph.id);
-                } else {
-                  return ph;
-                }
-              })
-              .filter((ph) => {
-                if (keyWords?.length > 0) {
-                  if (!andOr) {
-                    return keyWords.some((keyword) => ph.title.includes(keyword));
-                  } else {
-                    return keyWords.every((keyword) => ph.title.includes(keyword));
-                  }
-                } else {
-                  return ph;
-                }
-              })
+              ?.filter(handleFavorites)
+              .filter(handleUseFilter)
               .map((photo) => {
                 return (
                   <Card
