@@ -1,13 +1,15 @@
 import React from 'react';
 import SearchBar from './SearchBar';
+import ReactTags from 'react-tag-autocomplete';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 describe('SearchBar component', () => {
-  test('UI SearchBar ', () => {
+  test('UI SearchBar', () => {
     const { container } = render(<SearchBar />);
     expect(container).toMatchSnapshot();
   });
+
   test('should contain heading text', () => {
     render(<SearchBar />);
     expect(screen.getByText('Insert a comma after each keyword')).toBeVisible();
