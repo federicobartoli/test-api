@@ -75,6 +75,7 @@ exports[`SearchBar component UI SearchBar 1`] = `
           class="filter__choice"
         >
           <input
+            data-testid="and"
             id="and"
             name="filter"
             type="radio"

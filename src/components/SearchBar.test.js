@@ -22,4 +22,17 @@ describe('SearchBar component', () => {
     fireEvent.click(filterButton);
     expect(handleFilter).toHaveBeenCalledTimes(1);
   });
+  test('should show and', () => {
+    const fn = jest.fn();
+    const props = {
+      andOr: true,
+      setAndOr: fn,
+      handleFilter: fn,
+    };
+
+    render(<SearchBar {...props} />);
+    const filterButton = screen.getByTestId('and');
+    fireEvent.change(filterButton, { target: { value: true } });
+    expect(filterButton.value).toEqual('true');
+  });
 });

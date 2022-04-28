@@ -64,6 +64,7 @@ const SearchBar = ({ handleFilter, andOr, setAndOr }) => {
               id="and"
               name="filter"
               value="and"
+              data-testid="and"
               onChange={() => setAndOr(true)}
             />
             <label htmlFor="and">{`&&`}</label>
