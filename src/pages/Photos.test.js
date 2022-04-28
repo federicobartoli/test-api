@@ -38,6 +38,36 @@ afterAll(() => {
 });
 
 describe('api tests', () => {
+  test('should display error message when not able to fetch data', async () => {
+    server.use(
+      rest.get(photosUrl, (req, res, ctx) => {
+        return res(ctx.status(500), ctx.json({ message: 'The following error occurred' }));
+      }),
+    );
+    render(
+      <Router>
+        <Photos />
+      </Router>,
+    );
+    const imageTitleOne = await screen.findByText(/The following error occurred/);
+
+    expect(imageTitleOne).toBeVisible();
+  });
+  test('should display No photos when photos length < 1 ', async () => {
+    server.use(
+      rest.get(photosUrl, (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json());
+      }),
+    );
+    render(
+      <Router>
+        <Photos />
+      </Router>,
+    );
+    const imageTitleOne = await screen.findByText(/No photos/);
+
+    expect(imageTitleOne).toBeVisible();
+  });
   test('should fetch photos correctly', async () => {
     render(
       <Router>
@@ -72,13 +102,11 @@ describe('api tests', () => {
     const handleState = jest.spyOn(React, 'useState');
     handleState.mockImplementation((loading) => [loading, setLoading]);
     expect(setLoading).not.toBeCalled();
-
     render(
       <Router>
         <Photos />
       </Router>,
     );
-
     expect(setLoading).toBeCalled();
   });
 });
